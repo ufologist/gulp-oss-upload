@@ -18,17 +18,20 @@ var gulp = require('gulp');
 var ossUpload = require('gulp-oss-upload');
 
 gulp.task('publish-oss', function() {
-	return gulp.src("./app.js")
-		       .pipe(ossUpload({
+    return gulp.src('./app.js')
+               .pipe(ossUpload({
                     accessKeyId: 'your accessKeyId',
                     accessKeySecret: 'your accessKeySecret',
                     bucket: 'your bucket name',
+                    region: 'oss-cn-hangzhou', // the bucket data region location, default is oss-cn-hangzhou
                     rootDir: 'v1' // upload file root directory in the bucket(optional)
-		        }));
+                }));
 });
 ```
 
 This config will upload your current directory file `app.js` to `v1/app.js` in your bucket.
+
+Required param details please view [oss(options)](https://github.com/ali-sdk/ali-oss#ossoptions)
 
 ## optional param
 
@@ -46,8 +49,8 @@ This config will upload your current directory file `app.js` to `v1/app.js` in y
  *
  * @return {string}
  */
-function(objectName, rootDir, fileRelative){
-	return ''
+function(objectName, rootDir, fileRelative) {
+	return '';
 }
 ```
 
