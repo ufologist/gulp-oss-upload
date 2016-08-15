@@ -1,0 +1,36 @@
+{
+  "name": "gulp-oss-upload",
+  "version": "1.0.0",
+  "description": "A gulp plugin for uploading static file to aliyun oss(by official ali-oss sdk).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sun",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ufologist/gulp-oss-upload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ufologist/gulp-oss-upload/issues"
+  },
+  "homepage": "https://github.com/ufologist/gulp-oss-upload",
+  "keywords": [
+    "gulp",
+    "plugin",
+    "aliyun",
+    "oss",
+    "upload"
+  ],
+  "gulpplugin": [
+    "aliyun",
+    "oss",
+    "upload"
+  ],
+  "dependencies": {
+    "ali-oss": "^4.4.4",
+    "gulp-util": "^3.0.7",
+    "through2": "^2.0.1"
+  }
+}
