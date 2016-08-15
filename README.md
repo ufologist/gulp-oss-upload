@@ -45,3 +45,8 @@ function(objectName, rootDir, fileRelative){
 	return ''
 }
 ```
+
+## reference
+* [gulp-oss-up](https://github.com/marshalYuan/gulp-oss-up)
+
+  功能完全正常, 满足了我的需求(感谢作者), 但使用过程中发现 OSS SDK 不是阿里云官方的 SDK. `objectDir` 配置项也有点 [bug](https://github.com/marshalYuan/gulp-oss-up/issues/1), 因此自己参考着重写了一个.
