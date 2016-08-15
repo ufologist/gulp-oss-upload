@@ -17,13 +17,7 @@
   },
   "homepage": "https://github.com/ufologist/gulp-oss-upload",
   "keywords": [
-    "gulp",
-    "plugin",
-    "aliyun",
-    "oss",
-    "upload"
-  ],
-  "gulpplugin": [
+    "gulpplugin",
     "aliyun",
     "oss",
     "upload"
