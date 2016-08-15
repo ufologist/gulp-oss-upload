@@ -22,6 +22,9 @@
     "oss",
     "upload"
   ],
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "ali-oss": "^4.4.4",
     "gulp-util": "^3.0.7",
