@@ -1,5 +1,10 @@
 # gulp-oss-upload
 
+[![NPM version][npm-image]][npm-url]
+
+[npm-image]: https://img.shields.io/npm/v/gulp-oss-upload.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/gulp-oss-upload
+
 A gulp plugin for uploading static file to aliyun oss(by official ali-oss sdk).
 
 上传文件到阿里云 OSS 的 gulp 插件.
