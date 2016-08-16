@@ -1,5 +1,6 @@
 # 静态资源自动化发布方案
 
+* *v1.1.0 2016-8-16* 全量发布引入 gulp-changed 只操作修改过的文件, 可作为全量中的增量机制
 * *v1.0.0 2016-8-15* 全量发布和增量发布的机制
 
 通过自动化工具将静态资源上传到(生产)服务器(例如: OSS), 以下方案中都以 [OSS](https://intl.aliyun.com/zh/product/oss) 为例.
@@ -32,9 +33,10 @@
 ```javascript
 var gulp = require('gulp');
 var gulpFilter = require('gulp-filter');
+var gulpChanged = require('gulp-changed');
 var gulpCssmin = require('gulp-cssmin');
 var gulpUglify = require('gulp-uglify');
-var ossUpload = require('gulp-oss-upload');
+var gulpOssUpload = require('gulp-oss-upload');
 
 // 这里设置你要上传的文件
 var src = [
@@ -54,11 +56,15 @@ var ossOptions = {
     region: '配置你的 bucket region'
 };
 
+// 通过 gulpChanged 只操作修改过的文件, 如果要强制上传所有文件, 可以删掉 DEST 的目录
+var DEST = './.tmp';
+
 gulp.task('publish-oss', function() {
     var jsFilter = gulpFilter(['**/*.js', '!**/*{.,-}min.js'], {restore: true});
     var cssFilter = gulpFilter(['**/*.css', '!**/*{.,-}min.css'], {restore: true});
 
     return gulp.src(src.concat(ignore))
+               .pipe(gulpChanged(DEST))
                // 项目中使用源码形式, 上传到 OSS 时做 min 处理
                .pipe(jsFilter)
                .pipe(gulpUglify())
@@ -66,8 +72,8 @@ gulp.task('publish-oss', function() {
                .pipe(cssFilter)
                .pipe(gulpCssmin())
                .pipe(cssFilter.restore)
-            //    .pipe(gulp.dest('./_tmp')) // 可以使用 dest 来测试看筛选的文件是否正确
-               .pipe(ossUpload(ossOptions));
+               .pipe(gulp.dest(DEST)) // 可以通过 dest 来看筛选的文件是否正确
+               .pipe(gulpOssUpload(ossOptions));
 });
 ```
 
@@ -84,7 +90,7 @@ gulp.task('publish-oss', function() {
 ```javascript
 var fs = require('fs');
 var gulp = require('gulp');
-var ossUpload = require('gulp-oss-upload');
+var gulpOssUpload = require('gulp-oss-upload');
 
 /**
  * 这里是 changedfiles-static.txt 的示例文件内容
@@ -145,6 +151,6 @@ var ossOptions = {
 
 gulp.task('publish-oss', function() {
     return gulp.src(src.concat(ignore), {base: '.'})
-               .pipe(ossUpload(ossOptions));
+               .pipe(gulpOssUpload(ossOptions));
 });
 ```
