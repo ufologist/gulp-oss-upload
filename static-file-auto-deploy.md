@@ -64,15 +64,21 @@ gulp.task('publish-oss', function() {
     var cssFilter = gulpFilter(['**/*.css', '!**/*{.,-}min.css'], {restore: true});
 
     return gulp.src(src.concat(ignore))
+               // 执行过一次全量更新后, 后续只操作修改过的文件
                .pipe(gulpChanged(DEST))
-               // 项目中使用源码形式, 上传到 OSS 时做 min 处理
+               // 项目中使用源码形式, 上传到 OSS 前做 min 处理
+               // 处理 JS 文件
                .pipe(jsFilter)
                .pipe(gulpUglify())
                .pipe(jsFilter.restore)
+               // 处理 CSS 文件
                .pipe(cssFilter)
                .pipe(gulpCssmin())
                .pipe(cssFilter.restore)
-               .pipe(gulp.dest(DEST)) // 可以通过 dest 来看筛选的文件是否正确
+               // ... 你还可以添加其他处理, 例如 autoprefixer, imagemin 等等
+               // 配合 gulpChanged 来使用
+               .pipe(gulp.dest(DEST))
+               // 最终完成静态资源的上传
                .pipe(gulpOssUpload(ossOptions));
 });
 ```
